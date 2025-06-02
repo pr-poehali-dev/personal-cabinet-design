@@ -38,26 +38,37 @@ const StatsCards = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
       {stats.map((stat, index) => (
         <Card
           key={index}
           className="hover:shadow-md transition-shadow duration-200"
         >
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                <Icon name={stat.icon} size={20} className={stat.color} />
+          <CardHeader className="pb-2 md:pb-3 p-3 md:p-6">
+            <div className="flex items-center justify-between mb-2 md:mb-0">
+              <div className={`p-1.5 md:p-2 rounded-lg ${stat.bgColor}`}>
+                <Icon
+                  name={stat.icon}
+                  size={16}
+                  className={`md:hidden ${stat.color}`}
+                />
+                <Icon
+                  name={stat.icon}
+                  size={20}
+                  className={`hidden md:block ${stat.color}`}
+                />
               </div>
             </div>
-            <div className="space-y-1">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <div className="space-y-0.5 md:space-y-1">
+              <CardTitle className="text-xs md:text-sm font-medium text-gray-600">
                 {stat.title}
               </CardTitle>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-lg md:text-2xl font-bold text-gray-900">
                 {stat.value}
               </div>
-              <p className="text-xs text-gray-500">{stat.change}</p>
+              <p className="text-xs text-gray-500 hidden md:block">
+                {stat.change}
+              </p>
             </div>
           </CardHeader>
         </Card>

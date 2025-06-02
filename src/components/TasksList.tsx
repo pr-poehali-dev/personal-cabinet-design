@@ -74,57 +74,68 @@ const TasksList = () => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
+      <CardHeader className="p-4 md:p-6">
+        <CardTitle className="flex items-center justify-between text-base md:text-lg">
           <span>Активные задачи</span>
           <Badge variant="secondary">{tasks.length}</Badge>
         </CardTitle>
       </CardHeader>
-      <div className="px-6 pb-6">
-        <div className="space-y-4">
+      <div className="px-4 pb-4 md:px-6 md:pb-6">
+        <div className="space-y-3 md:space-y-4">
           {tasks.map((task) => (
             <div
               key={task.id}
-              className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center space-x-2 md:space-x-4 p-2 md:p-3 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <Icon
                 name={getStatusIcon(task.status)}
-                size={16}
-                className={
+                size={14}
+                className={`md:hidden ${
                   task.status === "completed"
                     ? "text-green-500"
                     : "text-gray-400"
-                }
+                }`}
+              />
+              <Icon
+                name={getStatusIcon(task.status)}
+                size={16}
+                className={`hidden md:block ${
+                  task.status === "completed"
+                    ? "text-green-500"
+                    : "text-gray-400"
+                }`}
               />
 
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-xs md:text-sm font-medium text-gray-900 truncate">
                   {task.title}
                 </p>
-                <p className="text-xs text-gray-500">{task.project}</p>
+                <p className="text-xs text-gray-500 hidden md:block">
+                  {task.project}
+                </p>
               </div>
 
-              <Badge
-                variant="outline"
-                className={`text-xs ${getPriorityColor(task.priority)}`}
-              >
-                {task.priority === "high"
-                  ? "Высокий"
-                  : task.priority === "medium"
-                    ? "Средний"
-                    : "Низкий"}
-              </Badge>
+              <div className="flex flex-col md:flex-row items-end md:items-center space-y-1 md:space-y-0 md:space-x-3">
+                <Badge
+                  variant="outline"
+                  className={`text-xs ${getPriorityColor(task.priority)} hidden md:inline-flex`}
+                >
+                  {task.priority === "high"
+                    ? "Высокий"
+                    : task.priority === "medium"
+                      ? "Средний"
+                      : "Низкий"}
+                </Badge>
 
-              <div className="text-xs text-gray-500 min-w-0">
-                {task.dueDate}
+                <div className="text-xs text-gray-500">{task.dueDate}</div>
+
+                <Avatar className="h-5 w-5 md:h-6 md:w-6">
+                  <AvatarImage src={task.assignee.avatar} />
+                  <AvatarFallback className="text-xs">
+                    {task.assignee.name[0]}
+                  </AvatarFallback>
+                </Avatar>
               </div>
-
-              <Avatar className="h-6 w-6">
-                <AvatarImage src={task.assignee.avatar} />
-                <AvatarFallback className="text-xs">
-                  {task.assignee.name[0]}
-                </AvatarFallback>
-              </Avatar>
             </div>
           ))}
         </div>
